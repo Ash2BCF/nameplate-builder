@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nameplate Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nameplate-builder">
+        <h1>Build Your Custom Nameplate</h1>
+
+        <!-- Input for Name -->
+        <input type="text" id="nameInput" placeholder="Enter your name" oninput="updateName()">
+
+        <!-- Dropdown for Border Selection -->
+        <label for="borderStyle">Select Border:</label>
+        <select id="borderStyle" onchange="changeBorder()">
+            <option value="starBorder">Star Border</option>
+            <option value="heartBorder">Heart Border</option>
+        </select>
+
+        <!-- Live Preview Area -->
+        <div id="preview">
+            <svg id="nameplate-svg" xmlns="http://www.w3.org/2000/svg" width="300" height="150" viewBox="0 0 300 150"></svg>
+        </div>
+
+        <!-- Export Button -->
+        <button onclick="exportSVG()">Export as SVG</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
