@@ -1,98 +1,78 @@
-let currentBorder = 'https://raw.githubusercontent.com/your-username/nameplate-builder/main/borders/starBorder.svg';
+let currentSlide = 0;
+const borderFiles = ["borders/starBorder.svg", "borders/heartBorder.svg"];
 
-// Function to update the name in the preview
-function updateName() {
-    const name = document.getElementById('nameInput').value;
-    const svgElement = document.getElementById('nameplate-svg');
-    updateSVG(name, currentBorder, svgElement);
+function slideLeft() {
+    currentSlide = (currentSlide > 0) ? currentSlide - 1 : borderFiles.length - 1;
+    loadBorderSVG(borderFiles[currentSlide]);
 }
 
-// Function to change the border
-function changeBorder() {
-    const border = document.getElementById('borderStyle').value;
-
-    // Update the current border URL from GitHub
-    if (border === 'starBorder') {
-        currentBorder = 'https://raw.githubusercontent.com/Ash2BCF/nameplate-builder/refs/heads/main/borders/starBorder.svg';
-    } else if (border === 'heartBorder') {
-        currentBorder = 'https://raw.githubusercontent.com/Ash2BCF/nameplate-builder/refs/heads/main/borders/heartBorder.svg';
-    }
-
-    // Re-update the preview
-    const name = document.getElementById('nameInput').value;
-    const svgElement = document.getElementById('nameplate-svg');
-    updateSVG(name, currentBorder, svgElement);
+function slideRight() {
+    currentSlide = (currentSlide < borderFiles.length - 1) ? currentSlide + 1 : 0;
+    loadBorderSVG(borderFiles[currentSlide]);
 }
 
-// Function to fetch the SVG border and update the preview
-function updateSVG(name, borderFile, svgElement) {
+function loadBorderSVG(borderFile) {
     fetch(borderFile)
         .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const svgDoc = parser.parseFromString(data, 'image/svg+xml');
-            const borderSVG = svgDoc.documentElement;
-
-            // Clear the previous content
-            svgElement.innerHTML = '';
-
-            // Append the border SVG
-            svgElement.appendChild(borderSVG);
-
-            // Create and insert the name text element
-            const textElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            textElement.setAttribute("x", "50%");
-            textElement.setAttribute("y", "50%");
-            textElement.setAttribute("dominant-baseline", "middle");
-            textElement.setAttribute("text-anchor", "middle");
-            textElement.setAttribute("font-size", "24");
-            textElement.setAttribute("fill", "black");
-            textElement.textContent = name;
-
-            // Append the name to the SVG
-            svgElement.appendChild(textElement);
+        .then(svgText => {
+            const borderContainer = document.getElementById('borderSVG');
+            borderContainer.innerHTML = svgText;
         })
-        .catch(err => console.error('Error loading SVG:', err));
+        .catch(err => console.error(err));
 }
 
-// Function to export the SVG
+function updatePreview() {
+    const nameSVG = document.getElementById('nameSVG');
+    nameSVG.innerHTML = ''; // Clear previous content
+
+    const nameText = document.getElementById('nameInput').value || "Name";
+    const fontStyle = document.getElementById('fontStyle').value;
+    const maxFontSize = 60;
+    const minFontSize = 20;
+    const padding = 40; // Padding between text and the border
+
+    // Dynamically calculate font size based on text length
+    let fontSize = maxFontSize - (nameText.length * 2);
+    if (fontSize < minFontSize) fontSize = minFontSize;
+
+    const textElement = `<text x="50%" y="50%" font-size="${fontSize}" font-family="${fontStyle}" fill="#333" dominant-baseline="middle" text-anchor="middle">${nameText}</text>`;
+    
+    nameSVG.innerHTML = textElement;
+}
+
 function exportSVG() {
-    const svgElement = document.getElementById('nameplate-svg');
-    const serializer = new XMLSerializer();
-    const source = serializer.serializeToString(svgElement);
+    const svgElement = document.getElementById('nameSVG').cloneNode(true);
+    const borderElement = document.getElementById('borderSVG').innerHTML;
 
-    // Embed the selected border
-    fetch(currentBorder)
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const svgDoc = parser.parseFromString(data, 'image/svg+xml');
-            const borderSVG = svgDoc.documentElement;
+    const fullSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    fullSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    fullSVG.setAttribute("width", "800");
+    fullSVG.setAttribute("height", "300");
+    fullSVG.setAttribute("viewBox", "0 0 800 300");
 
-            // Create a combined SVG element
-            const fullSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            fullSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            fullSVG.setAttribute("width", "300");
-            fullSVG.setAttribute("height", "150");
-            fullSVG.setAttribute("viewBox", "0 0 300 150");
+    // Add the 3-inch by 8-inch border
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", "0");
+    rect.setAttribute("y", "0");
+    rect.setAttribute("width", "800");
+    rect.setAttribute("height", "300");
+    rect.setAttribute("fill", "none");
+    rect.setAttribute("stroke", "#333");
+    rect.setAttribute("stroke-width", "2");
 
-            // Append the border and text into the full SVG
-            fullSVG.appendChild(borderSVG);
-            Array.from(svgElement.childNodes).forEach(child => {
-                fullSVG.appendChild(child.cloneNode(true));
-            });
+    // Append the border and text elements to the final SVG
+    fullSVG.appendChild(rect);
+    fullSVG.innerHTML += borderElement + svgElement.innerHTML;
 
-            // Serialize and download the SVG
-            const combinedSource = serializer.serializeToString(fullSVG);
-            const blob = new Blob([combinedSource], { type: 'image/svg+xml' });
-            const url = URL.createObjectURL(blob);
+    const svgData = new XMLSerializer().serializeToString(fullSVG);
+    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    const svgUrl = URL.createObjectURL(svgBlob);
 
-            // Trigger the download
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'nameplate.svg';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
+    const downloadLink = document.createElement("a");
+    downloadLink.href = svgUrl;
+    downloadLink.download = "nameplate.svg";
+    downloadLink.click();
 }
+
+// Initial load
+loadBorderSVG(borderFiles[currentSlide]);
