@@ -4,104 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nameplate Creator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-        }
-        #inputContainer {
-            margin: 20px 0;
-        }
-        #nameInput {
-            padding: 10px;
-            font-size: 18px;
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        #fontStyle {
-            padding: 10px;
-            margin-left: 10px;
-        }
-        .button {
-            padding: 10px 15px;
-            font-size: 16px;
-            margin: 5px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #ddd;
-        }
-        #preview-container {
-            position: relative;
-            width: 800px; /* 8 inches */
-            height: 300px; /* 3 inches */
-            margin: 40px auto;
-            background-color: #e6e6fa;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #preview {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            background-color: white;
-            border: 2px solid #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #exportButton {
-            background-color: #4CAF50;
-            color: white;
-        }
-        #exportButton:hover {
-            background-color: #45a049;
-        }
-        #leftArrow, #rightArrow {
-            position: absolute;
-            top: 40%;
-            width: 30px;
-            height: 30px;
-            background-color: #ddd;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        #leftArrow {
-            left: -40px;
-        }
-        #rightArrow {
-            right: -40px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css"> <!-- Link to the external CSS -->
 </head>
 <body>
     <h1>Nameplate Creator</h1>
     <div id="inputContainer">
         <input type="text" id="nameInput" placeholder="Enter Name" oninput="updatePreview()">
         <select id="fontStyle" onchange="updatePreview()">
-            <option value="Arial">Arial</option>
-            <option value="Comic Sans MS">Comic Sans MS</option>
-            <option value="Papyrus">Papyrus</option>
-            <option value="Chalkduster">Chalkduster</option>
-            <option value="Verdana">Verdana</option>
-            <option value="Courier">Courier</option>
-            <option value="Georgia">Georgia</option>
-            <option value="Times New Roman">Times New Roman</option>
+            <!-- Font options with previews -->
+            <option value="Arial" class="font-option">Arial <span class="font-preview" style="font-family: Arial;">Sample</span></option>
+            <option value="Comic Sans MS" class="font-option">Comic Sans MS <span class="font-preview" style="font-family: Comic Sans MS;">Sample</span></option>
+            <option value="Papyrus" class="font-option">Papyrus <span class="font-preview" style="font-family: Papyrus;">Sample</span></option>
+            <option value="Chalkduster" class="font-option">Chalkduster <span class="font-preview" style="font-family: Chalkduster;">Sample</span></option>
+            <option value="Verdana" class="font-option">Verdana <span class="font-preview" style="font-family: Verdana;">Sample</span></option>
+            <option value="Courier" class="font-option">Courier <span class="font-preview" style="font-family: Courier;">Sample</span></option>
+            <option value="Georgia" class="font-option">Georgia <span class="font-preview" style="font-family: Georgia;">Sample</span></option>
+            <option value="Times New Roman" class="font-option">Times New Roman <span class="font-preview" style="font-family: Times New Roman;">Sample</span></option>
         </select>
     </div>
     
@@ -118,74 +36,6 @@
     
     <button class="button" id="exportButton" onclick="exportSVG()">Export as SVG</button>
 
-    <script>
-        let currentSlide = 0;
-        const borderFiles = ["borders/starBorder.svg", "borders/heartBorder.svg"];
-
-        function slideLeft() {
-            currentSlide = (currentSlide > 0) ? currentSlide - 1 : borderFiles.length - 1;
-            loadBorderSVG(borderFiles[currentSlide]);
-        }
-
-        function slideRight() {
-            currentSlide = (currentSlide < borderFiles.length - 1) ? currentSlide + 1 : 0;
-            loadBorderSVG(borderFiles[currentSlide]);
-        }
-
-        function loadBorderSVG(borderFile) {
-            fetch(borderFile)
-                .then(response => response.text())
-                .then(svgText => {
-                    const borderContainer = document.getElementById('borderSVG');
-                    borderContainer.innerHTML = svgText;
-                })
-                .catch(err => console.error(err));
-        }
-
-        function updatePreview() {
-            const nameSVG = document.getElementById('nameSVG');
-            nameSVG.innerHTML = ''; // Clear previous content
-
-            const nameText = document.getElementById('nameInput').value || "Name";
-            const fontStyle = document.getElementById('fontStyle').value;
-            const maxFontSize = 60;
-            const minFontSize = 20;
-            const padding = 40; // Padding between text and the border
-
-            // Dynamically calculate font size based on text length
-            let fontSize = maxFontSize - (nameText.length * 2);
-            if (fontSize < minFontSize) fontSize = minFontSize;
-
-            const textElement = `<text x="50%" y="50%" font-size="${fontSize}" font-family="${fontStyle}" fill="#333" dominant-baseline="middle" text-anchor="middle">${nameText}</text>`;
-            
-            nameSVG.innerHTML = textElement;
-        }
-
-        function exportSVG() {
-            const svgElement = document.getElementById('nameSVG').cloneNode(true);
-            const borderElement = document.getElementById('borderSVG').innerHTML;
-
-            const fullSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            fullSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            fullSVG.setAttribute("width", "800");
-            fullSVG.setAttribute("height", "300");
-            fullSVG.setAttribute("viewBox", "0 0 800 300");
-
-            // Append the border and text elements to the final SVG
-            fullSVG.innerHTML = borderElement + svgElement.innerHTML;
-
-            const svgData = new XMLSerializer().serializeToString(fullSVG);
-            const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
-            const svgUrl = URL.createObjectURL(svgBlob);
-
-            const downloadLink = document.createElement("a");
-            downloadLink.href = svgUrl;
-            downloadLink.download = "nameplate.svg";
-            downloadLink.click();
-        }
-
-        // Initial load
-        loadBorderSVG(borderFiles[currentSlide]);
-    </script>
+    <script src="script.js"></script> <!-- Link to the external JavaScript -->
 </body>
 </html>
