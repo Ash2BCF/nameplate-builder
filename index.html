@@ -95,6 +95,10 @@
         <input type="text" id="nameInput" placeholder="Enter Name" oninput="updatePreview()">
         <select id="fontStyle" onchange="updatePreview()">
             <option value="Arial">Arial</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Papyrus">Papyrus</option>
+            <option value="Chalkduster">Chalkduster</option>
+            <option value="Verdana">Verdana</option>
             <option value="Courier">Courier</option>
             <option value="Georgia">Georgia</option>
             <option value="Times New Roman">Times New Roman</option>
@@ -112,7 +116,7 @@
         <button id="rightArrow" onclick="slideRight()">&gt;</button>
     </div>
     
-    <button class="button" id="exportButton" onclick="exportPNG()">Export as PNG</button>
+    <button class="button" id="exportButton" onclick="exportSVG()">Export as SVG</button>
 
     <script>
         let currentSlide = 0;
@@ -144,24 +148,44 @@
 
             const nameText = document.getElementById('nameInput').value || "Name";
             const fontStyle = document.getElementById('fontStyle').value;
-            const textElement = `<text x="50%" y="50%" font-size="40" font-family="${fontStyle}" fill="#333" dominant-baseline="middle" text-anchor="middle">${nameText}</text>`;
+            const maxFontSize = 60;
+            const minFontSize = 20;
+            const padding = 40; // Padding between text and the border
+
+            // Dynamically calculate font size based on text length
+            let fontSize = maxFontSize - (nameText.length * 2);
+            if (fontSize < minFontSize) fontSize = minFontSize;
+
+            const textElement = `<text x="50%" y="50%" font-size="${fontSize}" font-family="${fontStyle}" fill="#333" dominant-baseline="middle" text-anchor="middle">${nameText}</text>`;
             
             nameSVG.innerHTML = textElement;
         }
 
-        function exportPNG() {
-            const previewElement = document.getElementById('preview-container');
-            html2canvas(previewElement).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'nameplate.png';
-                link.href = canvas.toDataURL();
-                link.click();
-            });
+        function exportSVG() {
+            const svgElement = document.getElementById('nameSVG').cloneNode(true);
+            const borderElement = document.getElementById('borderSVG').innerHTML;
+
+            const fullSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            fullSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            fullSVG.setAttribute("width", "800");
+            fullSVG.setAttribute("height", "300");
+            fullSVG.setAttribute("viewBox", "0 0 800 300");
+
+            // Append the border and text elements to the final SVG
+            fullSVG.innerHTML = borderElement + svgElement.innerHTML;
+
+            const svgData = new XMLSerializer().serializeToString(fullSVG);
+            const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+            const svgUrl = URL.createObjectURL(svgBlob);
+
+            const downloadLink = document.createElement("a");
+            downloadLink.href = svgUrl;
+            downloadLink.download = "nameplate.svg";
+            downloadLink.click();
         }
 
         // Initial load
         loadBorderSVG(borderFiles[currentSlide]);
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
