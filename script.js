@@ -29,15 +29,30 @@ function updatePreview() {
     const fontStyle = document.getElementById('fontStyle').value;
     const maxFontSize = 60;
     const minFontSize = 20;
+    const maxCharactersPerLine = 12; // Set a reasonable character count for one line
     const padding = 40; // Padding between text and the border
 
-    // Dynamically calculate font size based on text length
+    let lines = [];
+
+    // Split the text into two lines if it's too long
+    if (nameText.length > maxCharactersPerLine) {
+        const firstLine = nameText.substring(0, maxCharactersPerLine);
+        const secondLine = nameText.substring(maxCharactersPerLine);
+        lines.push(firstLine, secondLine);
+    } else {
+        lines.push(nameText);
+    }
+
+    // Calculate the font size based on the total text length
     let fontSize = maxFontSize - (nameText.length * 2);
     if (fontSize < minFontSize) fontSize = minFontSize;
 
-    const textElement = `<text x="50%" y="50%" font-size="${fontSize}" font-family="${fontStyle}" fill="#333" dominant-baseline="middle" text-anchor="middle">${nameText}</text>`;
-    
-    nameSVG.innerHTML = textElement;
+    // Generate the text for each line
+    lines.forEach((line, index) => {
+        const yPosition = (lines.length === 1) ? "50%" : (index === 0 ? "40%" : "60%"); // Adjust y-position for 2 lines
+        const textElement = `<text x="50%" y="${yPosition}" font-size="${fontSize}" font-family="${fontStyle}" fill="#333" dominant-baseline="middle" text-anchor="middle">${line}</text>`;
+        nameSVG.innerHTML += textElement;
+    });
 }
 
 function exportSVG() {
