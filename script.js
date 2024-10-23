@@ -13,9 +13,9 @@ function changeBorder() {
 
     // Update the current border URL from GitHub
     if (border === 'starBorder') {
-        currentBorder = 'https://raw.githubusercontent.com/your-username/nameplate-builder/main/borders/starBorder.svg';
+        currentBorder = 'https://raw.githubusercontent.com/Ash2BCF/nameplate-builder/refs/heads/main/borders/starBorder.svg';
     } else if (border === 'heartBorder') {
-        currentBorder = 'https://raw.githubusercontent.com/your-username/nameplate-builder/main/borders/heartBorder.svg';
+        currentBorder = 'https://raw.githubusercontent.com/Ash2BCF/nameplate-builder/refs/heads/main/borders/heartBorder.svg';
     }
 
     // Re-update the preview
