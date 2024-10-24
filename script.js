@@ -1,6 +1,14 @@
-let currentSlide = 0;
-const borderFiles = ["borders/starBorder.svg", "borders/heartBorder.svg"];
+// Available border files (add new borders here)
+const borderFiles = [
+    "borders/starBorder.svg",
+    "borders/heartBorder.svg",
+    "borders/lightningBorder.svg",  // New border
+];
 
+// Index for tracking the current border being displayed
+let currentSlide = 0;
+
+// Function to load the selected border SVG
 function loadBorderSVG(borderFile) {
     fetch(borderFile)
         .then(response => response.text())
@@ -11,12 +19,24 @@ function loadBorderSVG(borderFile) {
         .catch(err => console.error(err));
 }
 
+// Function to cycle to the previous border
+function slideLeft() {
+    currentSlide = (currentSlide > 0) ? currentSlide - 1 : borderFiles.length - 1;
+    loadBorderSVG(borderFiles[currentSlide]);
+}
+
+// Function to cycle to the next border
+function slideRight() {
+    currentSlide = (currentSlide < borderFiles.length - 1) ? currentSlide + 1 : 0;
+    loadBorderSVG(borderFiles[currentSlide]);
+}
+
+// Function to update the name preview
 function updatePreview() {
     const nameSVG = document.getElementById('nameSVG');
     nameSVG.innerHTML = ''; // Clear previous content
 
-    const nameText = document.getElementById('nameInput').value || "Name";
-    const fontStyle = document.getElementById('fontStyle').value;
+    const nameText = document.getElementById('nameInput').value || "Your Name";
     const maxFontSize = 60;
     const minFontSize = 20;
     const maxCharactersPerLine = 12; // Set a reasonable character count for one line
@@ -40,11 +60,12 @@ function updatePreview() {
     // Generate the text for each line
     lines.forEach((line, index) => {
         const yPosition = (lines.length === 1) ? "50%" : (index === 0 ? "40%" : "60%"); // Adjust y-position for 2 lines
-        const textElement = `<text x="50%" y="${yPosition}" font-size="${fontSize}" font-family="${fontStyle}" fill="#333" dominant-baseline="middle" text-anchor="middle">${line}</text>`;
+        const textElement = `<text x="50%" y="${yPosition}" font-size="${fontSize}" fill="#333" dominant-baseline="middle" text-anchor="middle">${line}</text>`;
         nameSVG.innerHTML += textElement;
     });
 }
 
+// Function to export the nameplate as SVG
 function exportSVG() {
     const svgElement = document.getElementById('nameSVG').cloneNode(true);
     const borderElement = document.getElementById('borderSVG').innerHTML;
@@ -52,10 +73,10 @@ function exportSVG() {
     const fullSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     fullSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     fullSVG.setAttribute("width", "800");
-    fullSVG.setAttribute("height", "400"); // Adjust height to include nameplate stand
-    fullSVG.setAttribute("viewBox", "0 0 800 400");
+    fullSVG.setAttribute("height", "300");
+    fullSVG.setAttribute("viewBox", "0 0 800 300");
 
-    // Add the 3-inch by 8-inch border (nameplate border)
+    // Add the 3-inch by 8-inch border
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     rect.setAttribute("x", "0");
     rect.setAttribute("y", "0");
@@ -65,20 +86,9 @@ function exportSVG() {
     rect.setAttribute("stroke", "#333");
     rect.setAttribute("stroke-width", "2");
 
-    // Append the nameplate border and text
+    // Append the border and text elements to the final SVG
     fullSVG.appendChild(rect);
     fullSVG.innerHTML += borderElement + svgElement.innerHTML;
-
-    // Add the nameplate stand (three rectangles) to the SVG
-    const nameplateStand = `
-        <g id="nameplateStand">
-            <rect x="50" y="310" width="200" height="30" fill="#333" />
-            <rect x="300" y="310" width="200" height="30" fill="#333" />
-            <rect x="550" y="310" width="200" height="30" fill="#333" />
-        </g>
-    `;
-    
-    fullSVG.innerHTML += nameplateStand; // Add the stand to the final SVG
 
     const svgData = new XMLSerializer().serializeToString(fullSVG);
     const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
@@ -86,9 +96,9 @@ function exportSVG() {
 
     const downloadLink = document.createElement("a");
     downloadLink.href = svgUrl;
-    downloadLink.download = "nameplate_with_stand.svg";
+    downloadLink.download = "nameplate.svg";
     downloadLink.click();
 }
 
-// Initial load of the border
-loadBorderSVG(borderFiles[currentSlide]);
+// Initial load of the first border
+loadBorderSVG(borderFiles[0]);
