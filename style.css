@@ -52,6 +52,7 @@ h1 {
     width: 800px;
     height: 300px;
     border: 2px solid #f3742c; /* Border around preview area */
+    background-color: white;   /* Preview background restored */
     margin: 0 20px;
 }
 
@@ -73,4 +74,13 @@ h1 {
 
 #exportButton:hover {
     background-color: #d9601f;
+}
+
+/* Logo placement (too big and too low) */
+#logoContainer {
+    margin-top: 100px;
+}
+
+#logoContainer img {
+    width: 500px; /* Big logo */
 }
