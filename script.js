@@ -2,7 +2,8 @@
 const borderFiles = [
     "borders/starBorder.svg",
     "borders/heartBorder.svg",
-    "borders/lightningBorder.svg",  // New border
+    "borders/circleBorder.svg",
+    "borders/waveBorder.svg"
 ];
 
 // Index for tracking the current border being displayed
