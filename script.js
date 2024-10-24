@@ -1,5 +1,5 @@
 let currentSlide = 0;
-const borderFiles = ["borders/starBorder.svg", "borders/heartBorder.svg"];
+const borderFiles = ["borders/starBorder.svg", "borders/heartBorder.svg", "borders/lightningBorder.svg"];
 
 function slideLeft() {
     currentSlide = (currentSlide > 0) ? currentSlide - 1 : borderFiles.length - 1;
