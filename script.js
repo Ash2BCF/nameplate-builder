@@ -1,16 +1,6 @@
 let currentSlide = 0;
 const borderFiles = ["borders/starBorder.svg", "borders/heartBorder.svg"];
 
-function slideLeft() {
-    currentSlide = (currentSlide > 0) ? currentSlide - 1 : borderFiles.length - 1;
-    loadBorderSVG(borderFiles[currentSlide]);
-}
-
-function slideRight() {
-    currentSlide = (currentSlide < borderFiles.length - 1) ? currentSlide + 1 : 0;
-    loadBorderSVG(borderFiles[currentSlide]);
-}
-
 function loadBorderSVG(borderFile) {
     fetch(borderFile)
         .then(response => response.text())
@@ -62,10 +52,10 @@ function exportSVG() {
     const fullSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     fullSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     fullSVG.setAttribute("width", "800");
-    fullSVG.setAttribute("height", "300");
-    fullSVG.setAttribute("viewBox", "0 0 800 300");
+    fullSVG.setAttribute("height", "400"); // Adjust height to include nameplate stand
+    fullSVG.setAttribute("viewBox", "0 0 800 400");
 
-    // Add the 3-inch by 8-inch border
+    // Add the 3-inch by 8-inch border (nameplate border)
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     rect.setAttribute("x", "0");
     rect.setAttribute("y", "0");
@@ -75,9 +65,20 @@ function exportSVG() {
     rect.setAttribute("stroke", "#333");
     rect.setAttribute("stroke-width", "2");
 
-    // Append the border and text elements to the final SVG
+    // Append the nameplate border and text
     fullSVG.appendChild(rect);
     fullSVG.innerHTML += borderElement + svgElement.innerHTML;
+
+    // Add the nameplate stand (three rectangles) to the SVG
+    const nameplateStand = `
+        <g id="nameplateStand">
+            <rect x="50" y="310" width="200" height="30" fill="#333" />
+            <rect x="300" y="310" width="200" height="30" fill="#333" />
+            <rect x="550" y="310" width="200" height="30" fill="#333" />
+        </g>
+    `;
+    
+    fullSVG.innerHTML += nameplateStand; // Add the stand to the final SVG
 
     const svgData = new XMLSerializer().serializeToString(fullSVG);
     const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
@@ -85,9 +86,9 @@ function exportSVG() {
 
     const downloadLink = document.createElement("a");
     downloadLink.href = svgUrl;
-    downloadLink.download = "nameplate.svg";
+    downloadLink.download = "nameplate_with_stand.svg";
     downloadLink.click();
 }
 
-// Initial load
+// Initial load of the border
 loadBorderSVG(borderFiles[currentSlide]);
