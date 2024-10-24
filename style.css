@@ -20,33 +20,12 @@ body {
 
 /* Use Franchise Bold for the Website Title */
 h1 {
-    color: white; /* Website title color */
+    color: white;
     font-family: 'Franchise Bold', sans-serif; /* Custom font */
     font-size: 48px;
 }
 
-#logoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh; /* Reduce height to raise the logo higher */
-    position: absolute;
-    top: 20px; /* Move the logo higher up the page */
-    left: 0;
-    width: 100%;
-    z-index: -1; /* Place behind other content */
-}
-
-#centerLogo {
-    max-width: 150px; /* Make the logo smaller */
-    opacity: 0.8; /* Optional: Add a bit of transparency */
-    transition: opacity 0.3s;
-}
-
-#centerLogo:hover {
-    opacity: 1; /* Full opacity on hover */
-}
-
+/* Input styling */
 #inputContainer {
     margin: 20px 0;
 }
@@ -117,24 +96,27 @@ h1 {
     background-color: #45a049;
 }
 
-/* Arrows for sliding */
-#leftArrow, #rightArrow {
+/* Centering the logo in the middle of the page */
+#logoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
     position: absolute;
-    top: 40%;
-    width: 30px;
-    height: 30px;
-    background-color: #ddd;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1; /* Place behind other content */
 }
 
-#leftArrow {
-    left: -40px;
+#centerLogo {
+    max-width: 300px; /* Adjust logo size as needed */
+    opacity: 0.8; /* Optional: Add a bit of transparency */
+    transition: opacity 0.3s;
 }
 
-#rightArrow {
-    right: -40px;
+#centerLogo:hover {
+    opacity: 1; /* Full opacity on hover */
 }
 
 /* Font dropdown preview styles */
