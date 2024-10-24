@@ -3,42 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nameplate Creator</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to the external CSS -->
+    <title>Custom Nameplate Builder</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Nameplate Creator</h1>
-    <div id="inputContainer">
-        <input type="text" id="nameInput" placeholder="Enter Name" oninput="updatePreview()">
-        <select id="fontStyle" onchange="updatePreview()">
-            <!-- Font options with previews -->
-            <option value="Arial" class="font-option">Arial <span class="font-preview" style="font-family: Arial;">Sample</span></option>
-            <option value="Comic Sans MS" class="font-option">Comic Sans MS <span class="font-preview" style="font-family: Comic Sans MS;">Sample</span></option>
-            <option value="Papyrus" class="font-option">Papyrus <span class="font-preview" style="font-family: Papyrus;">Sample</span></option>
-            <option value="Chalkduster" class="font-option">Chalkduster <span class="font-preview" style="font-family: Chalkduster;">Sample</span></option>
-            <option value="Verdana" class="font-option">Verdana <span class="font-preview" style="font-family: Verdana;">Sample</span></option>
-            <option value="Courier" class="font-option">Courier <span class="font-preview" style="font-family: Courier;">Sample</span></option>
-            <option value="Georgia" class="font-option">Georgia <span class="font-preview" style="font-family: Georgia;">Sample</span></option>
-            <option value="Times New Roman" class="font-option">Times New Roman <span class="font-preview" style="font-family: Times New Roman;">Sample</span></option>
-        </select>
-    </div>
-    
-    <div id="preview-container">
-        <button id="leftArrow" onclick="slideLeft()">&lt;</button>
-        <div id="preview">
-            <div id="borderSVG" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:0;">
-                <!-- SVG Border will be placed here -->
-            </div>
-            <svg id="nameSVG" width="800" height="300" style="position:absolute; z-index:1;"></svg>
-        </div>
-        <button id="rightArrow" onclick="slideRight()">&gt;</button>
-    </div>
-    
-    <button class="button" id="exportButton" onclick="exportSVG()">Export as SVG</button>
+    <h1>Build Your Custom Nameplate</h1>
 
-     <div id="logoContainer">
-        <img id="centerLogo" src="images/logo-light-transparent.png" alt="Two Bit Circus Foundation Logo" />
+    <!-- Name input field -->
+    <div id="nameInputContainer">
+        <input type="text" id="nameInput" placeholder="Enter your name" oninput="updatePreview()" />
     </div>
-    <script src="script.js"></script> <!-- Link to the external JavaScript -->
+
+    <!-- Border selection buttons -->
+    <div id="borderSelection">
+        <button id="leftArrow" onclick="slideLeft()">←</button>
+        <div id="previewContainer">
+            <svg id="borderSVG" width="800" height="300" viewBox="0 0 800 300"></svg>
+            <svg id="nameSVG" width="800" height="300" viewBox="0 0 800 300"></svg>
+        </div>
+        <button id="rightArrow" onclick="slideRight()">→</button>
+    </div>
+
+    <!-- Export button -->
+    <button id="exportButton" onclick="exportSVG()">Export as SVG</button>
+
+    <script src="script.js"></script>
 </body>
 </html>
