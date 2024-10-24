@@ -25,6 +25,28 @@ h1 {
     font-size: 48px;
 }
 
+#logoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1; /* Place behind other content */
+}
+
+#centerLogo {
+    max-width: 300px; /* Adjust logo size as needed */
+    opacity: 0.8; /* Optional: Add a bit of transparency */
+    transition: opacity 0.3s;
+}
+
+#centerLogo:hover {
+    opacity: 1; /* Full opacity on hover */
+}
+
 #inputContainer {
     margin: 20px 0;
 }
