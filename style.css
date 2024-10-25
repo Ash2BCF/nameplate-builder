@@ -93,7 +93,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 5px solid #f3742c; /* Preview border color */
+    border: 10px solid #f3742c; /* Preview border color */
 }
 
 /* SVG preview */
