@@ -34,7 +34,7 @@ h1 {
     top:520px; /* Move the logo higher up the page */
     left: 0;
     width: 100%;
-    z-index: 100; /* Place behind other content */
+    z-index: -1; /* Place behind other content */
 }
 
 #centerLogo {
