@@ -1,84 +1,52 @@
-/* General body and website title styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #225460; /* Background color */
-    margin: 0;
-    padding: 20px;
-    text-align: center;
-    color: white;
-}
-
-/* Use Franchise Bold for the Website Title */
-h1 {
-    color: white; /* Website title color */
-    font-family: 'Franchise Bold', sans-serif; /* Custom font */
-    font-size: 48px;
-}
-
-/* Updated Arrows for Sliding */
+/* Arrows for sliding */
 #leftArrow, #rightArrow {
-    font-size: 0; /* In case any text is being rendered */
     position: absolute;
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Align to center vertically */
-    width: 40px;
-    height: 40px;
-    background-color: #f3742c; /* Same orange as preview border */
-    border: none;
+    top: 50%; /* Vertically center */
+    transform: translateY(-50%); /* Keep it centered vertically */
+    width: 40px; /* Button width */
+    height: 40px; /* Button height */
+    background-color: #f3742c; /* Button background color */
+    border: none; /* Remove border */
     border-radius: 10px; /* Rounded corners */
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    box-sizing: border-box; /* Ensures padding doesn't mess with the size */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex; /* Flexbox to center arrow */
+    justify-content: center; /* Center arrow horizontally */
+    align-items: center; /* Center arrow vertically */
+    padding: 0; /* Remove any padding */
+    box-sizing: border-box; /* Ensure padding doesn't affect size */
 }
 
-/* Create the white triangles for the arrows */
 #leftArrow:before, #rightArrow:before {
-    content: '';
-    display: inline-block;
+    content: ''; /* Creates the arrow shapes */
+    display: inline-block; /* Inline block to make triangle appear */
     width: 0;
     height: 0;
     border-style: solid;
 }
 
 #leftArrow:before {
-    border-width: 10px 15px 10px 0; /* Triangle for left arrow */
-    border-color: transparent white transparent transparent;
+    border-width: 10px 15px 10px 0; /* Triangle pointing left */
+    border-color: transparent white transparent transparent; /* Left arrow */
 }
 
 #rightArrow:before {
-    border-width: 10px 0 10px 15px; /* Triangle for right arrow */
-    border-color: transparent transparent transparent white;
+    border-width: 10px 0 10px 15px; /* Triangle pointing right */
+    border-color: transparent transparent transparent white; /* Right arrow */
 }
 
-/* Ensure no old arrow symbols remain */
-#leftArrow:after, #rightArrow:after {
-    content: none;
-}
-
-/* Hover effects */
 #leftArrow:hover, #rightArrow:hover {
     background-color: #d85d19; /* Darker orange on hover */
 }
 
 #leftArrow {
-    left: -70px; /* Move left button further out */
+    left: -70px; /* Distance from the left of the preview */
 }
 
 #rightArrow {
-    right: -70px; /* Move right button further out */
+    right: -70px; /* Distance from the right of the preview */
 }
 
-/* Additional styling for font previews */
-.font-option {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.font-preview {
-    font-size: 16px;
-    margin-left: 10px;
+/* Remove old arrows (if present) */
+#leftArrow:after, #rightArrow:after {
+    content: none; /* Ensure no old arrow symbols remain */
 }
