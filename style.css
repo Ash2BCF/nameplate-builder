@@ -117,24 +117,49 @@ h1 {
     background-color: #45a049;
 }
 
-/* Arrows for sliding */
+/* Updated Arrows for Sliding */
 #leftArrow, #rightArrow {
     position: absolute;
     top: 40%;
-    width: 30px;
-    height: 30px;
-    background-color: #ddd;
+    width: 40px;
+    height: 40px;
+    background-color: #f3742c; /* Same orange as preview border */
     border: none;
-    border-radius: 50%;
+    border-radius: 10px; /* Rounded corners */
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#leftArrow:before, #rightArrow:before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+#leftArrow:before {
+    border-width: 10px 15px 10px 0; /* Triangle */
+    border-color: transparent white transparent transparent;
+}
+
+#rightArrow:before {
+    border-width: 10px 0 10px 15px; /* Triangle */
+    border-color: transparent transparent transparent white;
+}
+
+#leftArrow:hover, #rightArrow:hover {
+    background-color: #d85d19; /* Darker orange on hover */
 }
 
 #leftArrow {
-    left: -40px;
+    left: -50px; /* Adjust left button position */
 }
 
 #rightArrow {
-    right: -40px;
+    right: -50px; /* Adjust right button position */
 }
 
 /* Font dropdown preview styles */
