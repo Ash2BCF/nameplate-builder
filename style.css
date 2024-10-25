@@ -1,13 +1,3 @@
-/* Import Franchise Bold Font */
-@font-face {
-    font-family: 'Franchise Bold';
-    src: url('fonts/Franchise-Bold-hinted.woff2') format('woff2'),
-         url('fonts/Franchise-Bold-hinted.woff') format('woff'),
-         url('fonts/Franchise-Bold-hinted.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 /* General body and website title styling */
 body {
     font-family: Arial, sans-serif;
@@ -25,101 +15,8 @@ h1 {
     font-size: 48px;
 }
 
-#logoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh; /* Reduce height to raise the logo higher */
-    position: absolute;
-    top: 20px; /* Move the logo higher up the page */
-    left: 0;
-    width: 100%;
-    z-index: -1; /* Place behind other content */
-}
-
-#centerLogo {
-    max-width: 150px; /* Make the logo smaller */
-    opacity: 0.8; /* Optional: Add a bit of transparency */
-    transition: opacity 0.3s;
-}
-
-#centerLogo:hover {
-    opacity: 1; /* Full opacity on hover */
-}
-
-#inputContainer {
-    margin: 20px 0;
-}
-
-#nameInput {
-    padding: 10px;
-    font-size: 18px;
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#fontStyle {
-    padding: 10px;
-    margin-left: 10px;
-    font-size: 16px;
-}
-
-/* Button styles for generic buttons */
-.button {
-    padding: 10px 15px;
-    font-size: 16px;
-    margin: 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.button:hover {
-    background-color: #ddd;
-}
-
-/* Preview container */
-#preview-container {
-    position: relative;
-    width: 800px; /* 8 inches */
-    height: 300px; /* 3 inches */
-    margin: 40px auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 5px solid #f3742c; /* Preview border color */
-}
-
-/* SVG preview */
-#preview {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background-color: white;
-    border: 2px solid #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#exportButton {
-    background-color: #4CAF50;
-    color: white;
-}
-
-#exportButton:hover {
-    background-color: #45a049;
-}
-
 /* Updated Arrows for Sliding */
 #leftArrow, #rightArrow {
-    content: none !important; /* Make sure no unwanted content is rendered */
     font-size: 0; /* In case any text is being rendered */
     position: absolute;
     top: 50%; /* Center vertically */
@@ -137,8 +34,9 @@ h1 {
     box-sizing: border-box; /* Ensures padding doesn't mess with the size */
 }
 
+/* Create the white triangles for the arrows */
 #leftArrow:before, #rightArrow:before {
-    content: none !important;
+    content: '';
     display: inline-block;
     width: 0;
     height: 0;
@@ -155,15 +53,12 @@ h1 {
     border-color: transparent transparent transparent white;
 }
 
-/* Remove old arrow lines */
+/* Ensure no old arrow symbols remain */
 #leftArrow:after, #rightArrow:after {
-    content: none; /* Ensure no old arrow symbols remain */
+    content: none;
 }
 
-#leftArrow, #rightArrow {
-    background-color: #f3742c;
-}
-
+/* Hover effects */
 #leftArrow:hover, #rightArrow:hover {
     background-color: #d85d19; /* Darker orange on hover */
 }
@@ -176,7 +71,7 @@ h1 {
     right: -70px; /* Move right button further out */
 }
 
-/* Font dropdown preview styles */
+/* Additional styling for font previews */
 .font-option {
     display: flex;
     justify-content: space-between;
