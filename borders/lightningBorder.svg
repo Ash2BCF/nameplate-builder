@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 544.76 184.44">
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 578.67 217">
   <g id="Layer_1-2" data-name="Layer 1">
-    <polygon points="54.73 136.57 98.06 151.75 91.84 161.42 182.1 182.92 118.26 151.53 124.75 141.44 87.41 129.31 93.9 119.21 4.23 94.21 61.99 125.29 54.73 136.57" style="fill: none; stroke: #231f20; stroke-miterlimit: 10;"/>
-    <polygon points="131.59 44.05 88.27 59.23 94.48 68.9 4.23 90.4 68.07 59.02 61.57 48.92 98.92 36.79 92.43 26.69 182.1 1.69 124.34 32.77 131.59 44.05" style="fill: none; stroke: #231f20; stroke-miterlimit: 10;"/>
-    <polygon points="490.02 136.57 446.7 151.75 452.92 161.42 362.66 182.92 426.5 151.53 420.01 141.44 457.35 129.31 450.86 119.21 540.53 94.21 482.77 125.29 490.02 136.57" style="fill: none; stroke: #231f20; stroke-miterlimit: 10;"/>
-    <polygon points="413.17 44.05 456.49 59.23 450.28 68.9 540.53 90.4 476.69 59.02 483.19 48.92 445.84 36.79 452.33 26.69 362.66 1.69 420.42 32.77 413.17 44.05" style="fill: none; stroke: #231f20; stroke-miterlimit: 10;"/>
+    <rect x=".68" y=".5" width="576" height="216" style="fill: none; stroke: #231f20; stroke-miterlimit: 10;"/>
+    <g>
+      <polygon points="161.81 52.57 108.24 70.36 115.78 82.12 4.32 106.95 83.36 69.85 75.49 57.57 121.65 43.38 113.78 31.1 224.57 2.03 153.02 38.85 161.81 52.57" style="fill: none; stroke: #231f20; stroke-miterlimit: 10;"/>
+      <polygon points="67.08 160.58 120.64 178.37 113.11 190.13 224.57 214.96 145.53 177.86 153.39 165.58 107.24 151.39 115.1 139.11 4.32 110.04 75.87 146.86 67.08 160.58" style="fill: none; stroke: #231f20; stroke-miterlimit: 10;"/>
+    </g>
+    <g>
+      <polygon points="416.86 52.57 470.43 70.36 462.89 82.12 574.35 106.95 495.31 69.85 503.18 57.57 457.02 43.38 464.89 31.1 354.1 2.03 425.65 38.85 416.86 52.57" style="fill: none; stroke: #231f20; stroke-miterlimit: 10;"/>
+      <polygon points="511.59 160.58 458.03 178.37 465.56 190.13 354.1 214.96 433.14 177.86 425.28 165.58 471.43 151.39 463.57 139.11 574.35 110.04 502.8 146.86 511.59 160.58" style="fill: none; stroke: #231f20; stroke-miterlimit: 10;"/>
+    </g>
   </g>
 </svg>
