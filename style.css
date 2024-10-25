@@ -29,12 +29,12 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Reduce height to raise the logo higher */
+    height: 50vh; /* Reduce height to raise the logo higher */
     position: absolute;
-    top: 20px; /* Move the logo higher up the page */
+    top: 10px; /* Move the logo higher up the page */
     left: 0;
     width: 100%;
- /*   z-index: -1; /* Place behind other content */
+    z-index: -1; /* Place behind other content */
 }
 
 #centerLogo {
