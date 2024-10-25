@@ -29,7 +29,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300vh; /* Reduce height to raise the logo higher */
+    height: 50vh; /* Reduce height to raise the logo higher */
     position: absolute;
     top: 200px; /* Move the logo higher up the page */
     left: 0;
