@@ -1,5 +1,5 @@
 let currentSlide = 0;
-const borderFiles = ["borders/starBorder.svg", "borders/heartBorder.svg"];
+const borderFiles = ["none", "borders/starBorder.svg", "borders/heartBorder.svg"];
 
 function slideLeft() {
     currentSlide = (currentSlide > 0) ? currentSlide - 1 : borderFiles.length - 1;
@@ -12,13 +12,18 @@ function slideRight() {
 }
 
 function loadBorderSVG(borderFile) {
-    fetch(borderFile)
-        .then(response => response.text())
-        .then(svgText => {
-            const borderContainer = document.getElementById('borderSVG');
-            borderContainer.innerHTML = svgText;
-        })
-        .catch(err => console.error(err));
+    const borderContainer = document.getElementById('borderSVG');
+    
+    if (borderFile === "none") {
+        borderContainer.innerHTML = ''; // Clear the border if "No Border" is selected
+    } else {
+        fetch(borderFile)
+            .then(response => response.text())
+            .then(svgText => {
+                borderContainer.innerHTML = svgText;
+            })
+            .catch(err => console.error(err));
+    }
 }
 
 function updatePreview() {
@@ -89,5 +94,5 @@ function exportSVG() {
     downloadLink.click();
 }
 
-// Initial load
+// Initial load with "No Border" as the default
 loadBorderSVG(borderFiles[currentSlide]);
