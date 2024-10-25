@@ -120,7 +120,8 @@ h1 {
 /* Updated Arrows for Sliding */
 #leftArrow, #rightArrow {
     position: absolute;
-    top: 40%;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Aligns to center vertically */
     width: 40px;
     height: 40px;
     background-color: #f3742c; /* Same orange as preview border */
@@ -130,6 +131,8 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5px;
+    box-sizing: border-box; /* Ensures padding doesn't mess with the size */
 }
 
 #leftArrow:before, #rightArrow:before {
@@ -141,13 +144,18 @@ h1 {
 }
 
 #leftArrow:before {
-    border-width: 10px 0 10px 15px; /* Correct triangle direction for left arrow */
-    border-color: transparent transparent transparent white;
+    border-width: 10px 15px 10px 0; /* Triangle for left arrow */
+    border-color: transparent white transparent transparent;
 }
 
 #rightArrow:before {
-    border-width: 10px 15px 10px 0; /* Correct triangle direction for right arrow */
-    border-color: transparent white transparent transparent;
+    border-width: 10px 0 10px 15px; /* Triangle for right arrow */
+    border-color: transparent transparent transparent white;
+}
+
+/* Remove old arrow lines */
+#leftArrow, #rightArrow {
+    background-color: #f3742c;
 }
 
 #leftArrow:hover, #rightArrow:hover {
@@ -155,11 +163,11 @@ h1 {
 }
 
 #leftArrow {
-    left: -50px; /* Adjust left button position */
+    left: -70px; /* Move left button further out */
 }
 
 #rightArrow {
-    right: -50px; /* Adjust right button position */
+    right: -70px; /* Move right button further out */
 }
 
 /* Font dropdown preview styles */
