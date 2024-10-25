@@ -119,6 +119,8 @@ h1 {
 
 /* Updated Arrows for Sliding */
 #leftArrow, #rightArrow {
+    content: none !important; /* Make sure no unwanted content is rendered */
+    font-size: 0; /* In case any text is being rendered */
     position: absolute;
     top: 50%; /* Center vertically */
     transform: translateY(-50%); /* Align to center vertically */
@@ -136,7 +138,7 @@ h1 {
 }
 
 #leftArrow:before, #rightArrow:before {
-    content: '';
+    content: none !important;
     display: inline-block;
     width: 0;
     height: 0;
