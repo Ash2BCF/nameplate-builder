@@ -121,7 +121,7 @@ h1 {
 #leftArrow, #rightArrow {
     position: absolute;
     top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Aligns to center vertically */
+    transform: translateY(-50%); /* Align to center vertically */
     width: 40px;
     height: 40px;
     background-color: #f3742c; /* Same orange as preview border */
@@ -131,7 +131,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px;
+    padding: 0;
     box-sizing: border-box; /* Ensures padding doesn't mess with the size */
 }
 
@@ -154,6 +154,10 @@ h1 {
 }
 
 /* Remove old arrow lines */
+#leftArrow:after, #rightArrow:after {
+    content: none; /* Ensure no old arrow symbols remain */
+}
+
 #leftArrow, #rightArrow {
     background-color: #f3742c;
 }
